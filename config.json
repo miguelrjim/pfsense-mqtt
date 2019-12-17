@@ -1,0 +1,43 @@
+{
+    "name": "pfsense hassio integration",
+    "version": "0.0.1",
+    "slug": "pfsense",
+    "description": "pfSense hassio mqtt integration",
+    "startup": "before",
+    "boot": "auto",
+    "arch": [
+        "aarch64",
+        "amd64",
+        "armhf",
+        "armv7",
+        "i386"
+    ],
+    "options": {
+        "host": "localhost",
+        "port": 1883,
+        "pfsense_prefix": "pfsense",
+        "pfsense_rules": [],
+        "pfsense_host": "",
+        "pfsense_apikey": "",
+        "pfsense_apisecret": "",
+        "hass_discovery_prefix": "homeassistant",
+        "hass_topic": "hass/status",
+        "mqtt_user": "",
+        "mqtt_pass": ""
+    },
+    "schema": {
+        "host": "str",
+        "port": "port",
+        "pfsense_prefix": "str?",
+        "pfsense_rules": [
+            "str"
+        ],
+        "pfsense_host": "str",
+        "pfsense_apikey": "str",
+        "pfsense_apisecret": "str",
+        "hass_discovery_prefix": "str?",
+        "hass_topic": "str?",
+        "mqtt_user": "str",
+        "mqtt_pass": "str"
+    }
+}

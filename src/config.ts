@@ -23,12 +23,14 @@ try {
         "pfsense_apikey": process.env.PFSENSEAPIKEY,
         "pfsense_apisecret": process.env.PFSENSEAPISECRET,
         "hass_discovery_prefix": process.env.HASSDISCOVERYPREFIX,
+        "hass_topic": process.env.HASSTOPIC,
         "mqtt_user": process.env.MQTTUSER,
         "mqtt_pass": process.env.MQTTPASSWORD,
     }
 }
 config["pfsense_prefix"] = config["pfsense_prefix"] || "pfsense";
 config["hass_discovery_prefix"] = config["hass_discovery_prefix"] || "homeassistant"
+config["hass_topic"] = config["hass_topic"] || "hass/status"
 try {
     uuids = new Map(JSON.parse(readFileSync(UUIDS_FILE, {encoding: 'utf8'})))
     for (let [ruleId, uuid] of uuids.entries()) {
