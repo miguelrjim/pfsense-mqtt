@@ -9,5 +9,5 @@ cp /data/options.json pfsense-mqtt/config.json
 cd pfsense-mqtt
 npm install
 npm audit fix
-npm tsc
+npm run tsc
 DEBUG=* npm start
