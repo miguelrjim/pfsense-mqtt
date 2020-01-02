@@ -88,6 +88,7 @@ async function setup() {
     mqttClient.on('connect', async function () {
         if (!mqttConnected) {
             mqttConnected = true
+            if (config.hass_topic) { mqttClient.subscribe(config.hass_topic) }
             debugMqtt('MQTT connection reestablished, resending config/state information in 5 seconds.')
         }
         await sleep(5)
@@ -184,11 +185,11 @@ function publishRuleState(ruleId: string, state: string) {
 
 // Process received MQTT command
 async function processCommand(topic: string, message: any) {
-    message = message.toString()
+    message = message.toString().trim()
     if (topic === config.hass_topic) {
         // Republish devices and state after 60 seconds if restart of HA is detected
         debug('Home Assistant state topic '+topic+' received message: '+message)
-        if (message == 'online') {
+        if (message === AVAILABLE) {
             debug('Resending device config/state in 30 seconds')
             // Make sure any existing republish dies
             republishCount = 0 

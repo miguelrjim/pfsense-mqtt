@@ -12,20 +12,23 @@ let ruleIds = new Map<string, string>();
 
 let config: any;
 try {
+    if (process.env.FORCE_ENV === "TRUE") {
+        throw `Loading from environment variables`
+    }
     config = require(path.join(process.cwd(), 'config'))
 } catch (ex) {
     config = {
         "host": process.env.MQTTHOST,
         "port": process.env.MQTTPORT,
+        "mqtt_user": process.env.MQTTUSER,
+        "mqtt_pass": process.env.MQTTPASSWORD,
         "pfsense_prefix": process.env.MQTTPFSENSETOPIC,
         "pfsense_rules": JSON.parse(process.env.PFSENSERULES || "[]"),
         "pfsense_host": process.env.PFSENSEHOST,
         "pfsense_apikey": process.env.PFSENSEAPIKEY,
         "pfsense_apisecret": process.env.PFSENSEAPISECRET,
         "hass_discovery_prefix": process.env.HASSDISCOVERYPREFIX,
-        "hass_topic": process.env.HASSTOPIC,
-        "mqtt_user": process.env.MQTTUSER,
-        "mqtt_pass": process.env.MQTTPASSWORD,
+        "hass_topic": process.env.HASSTOPIC
     }
 }
 config["pfsense_prefix"] = config["pfsense_prefix"] || "pfsense";
