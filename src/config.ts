@@ -5,7 +5,10 @@ import uuid from 'uuid/v4'
 
 const writeFileAsync = promisify(writeFile);
 
-const UUIDS_FILE = path.join(process.cwd(), "uuids.json");
+const UUIDS_FILE = path.join(
+    process.env.LOCAL_UUIDS === "TRUE" ? process.cwd() : "/data",
+    "uuids.json"
+);
 
 let uuids: Map<string, string>;
 let ruleIds = new Map<string, string>();
