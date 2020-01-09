@@ -143,7 +143,7 @@ async function processRules() {
             rules.forEach(rule => {
                 publishRuleState(rule.descr, rule.hasOwnProperty("disabled") ? OFF : ON)
             })
-            await sleep(1)
+            await sleep(5)
             rules.forEach(rule => {
                 const availabilityTopic = `${getRuleTopic(rule.descr)}/availability`
                 mqttClient.publish(availabilityTopic, AVAILABLE, { qos: 1 })
@@ -171,7 +171,8 @@ function registerRule(ruleId: string) {
         state_topic: stateTopic,
         payload_on: ON,
         payload_off: OFF,
-        command_topic: commandTopic
+        command_topic: commandTopic,
+        retain: true
     }
     const configTopic = `${config.hass_discovery_prefix}/switch/${uuid}/config`
     mqttClient.subscribe(commandTopic)
