@@ -76,6 +76,7 @@ async function updateRule(ruleId: string, disabled: boolean) {
         }
     } 
     await fauxApiClient.patchConfiguration(patchedConfig)
+    await fauxApiClient.sendEvent(["filter reload"])
     publishRuleState(rule.descr, disabled ? OFF : ON)
 }
 
